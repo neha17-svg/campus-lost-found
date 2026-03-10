@@ -13,7 +13,7 @@ export default function MatchingItems() {
 
   const findMatches = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/items");
+      const response = await fetch("https://campus-lost-found-jnqg.onrender.com/api/items");
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -189,7 +189,7 @@ export default function MatchingItems() {
         foundItemId: match.foundItem._id,
       });
 
-      const response = await fetch("http://localhost:5000/api/matches/verify", {
+      const response = await fetch("https://campus-lost-found-jnqg.onrender.com/api/matches/verify", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -353,7 +353,7 @@ export default function MatchingItems() {
                   <div className="item-image-container">
                     {match.lostItem.photo ? (
                       <img
-                        src={`http://localhost:5000${match.lostItem.photo}`}
+                      src={`https://campus-lost-found-jnqg.onrender.com${match.lostItem.photo}`}
                         alt={match.lostItem.itemName}
                       />
                     ) : (
@@ -385,7 +385,7 @@ export default function MatchingItems() {
                   <div className="item-image-container">
                     {match.foundItem.photo ? (
                       <img
-                        src={`http://localhost:5000${match.foundItem.photo}`}
+                        src={`https://campus-lost-found-jnqg.onrender.com${match.foundItem.photo}`}
                         alt={match.foundItem.itemName}
                       />
                     ) : (

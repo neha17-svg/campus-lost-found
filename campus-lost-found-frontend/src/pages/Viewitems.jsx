@@ -18,7 +18,7 @@ export default function ViewItems() {
       setLoading(true);
       setError(null);
 
-      const response = await fetch("http://localhost:5000/api/items");
+      const response = await fetch("https://campus-lost-found-jnqg.onrender.com/api/items");
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -181,7 +181,7 @@ export default function ViewItems() {
                 <div className="card-image">
                   {item.photo ? (
                     <img
-                      src={`http://localhost:5000${item.photo}`}
+                     src={`https://campus-lost-found-jnqg.onrender.com${item.photo}`}
                       alt={item.itemName}
                       onError={(e) => {
                         console.error("Image failed to load:", item.photo);

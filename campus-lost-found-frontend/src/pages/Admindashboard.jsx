@@ -27,8 +27,8 @@ export default function AdminDashboard() {
   const fetchData = async () => {
     try {
       const [itemsRes, statsRes] = await Promise.all([
-        fetch("http://localhost:5000/api/items"),
-        fetch("http://localhost:5000/api/stats"),
+        fetch("https://campus-lost-found-jnqg.onrender.com/api/items"),
+        fetch("https://campus-lost-found-jnqg.onrender.com/api/stats"),
       ]);
 
       const itemsData = await itemsRes.json();
@@ -59,7 +59,7 @@ export default function AdminDashboard() {
     if (!confirm("Are you sure you want to delete this item?")) return;
 
     try {
-      await fetch(`http://localhost:5000/api/items/${id}`, {
+      await fetch(`https://campus-lost-found-jnqg.onrender.com/api/items/${id}`, {
         method: "DELETE",
       });
       fetchData();
@@ -70,7 +70,7 @@ export default function AdminDashboard() {
 
   const handleStatusUpdate = async (id, status) => {
     try {
-      await fetch(`http://localhost:5000/api/items/${id}/status`, {
+      await fetch(`https://campus-lost-found-jnqg.onrender.com/api/items/${id}/status`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -342,7 +342,7 @@ function ItemCard({ item, onDelete, onStatusUpdate }) {
     <div className="admin-item-card">
       <div className="card-image">
         {item.photo ? (
-          <img src={`http://localhost:5000${item.photo}`} alt={item.itemName} />
+          <img src={`https://campus-lost-found-jnqg.onrender.com${item.photo}`} alt={item.itemName} />
         ) : (
           <div className="no-image-admin">📷</div>
         )}

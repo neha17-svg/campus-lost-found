@@ -7,7 +7,7 @@ export default function Home() {
 
   useEffect(() => {
     // Fetch statistics
-    fetch("http://localhost:5000/api/stats")
+   fetch("https://campus-lost-found-jnqg.onrender.com/api/stats")
       .then((res) => res.json())
       .then((data) => setStats(data))
       .catch(() => setStats({ lost: 0, found: 0, matched: 0 }));

@@ -22,7 +22,7 @@ export default function ItemDetails() {
 
       console.log("Fetching item details for ID:", id);
 
-      const response = await fetch(`http://localhost:5000/api/items/${id}`);
+      const response = await fetch(`https://campus-lost-found-jnqg.onrender.com/api/items/${id}`);
 
       console.log("Response status:", response.status);
 
@@ -44,7 +44,7 @@ export default function ItemDetails() {
 
       // Fetch similar items
       try {
-        const allItemsResponse = await fetch("http://localhost:5000/api/items");
+        const allItemsResponse = await fetch("https://campus-lost-found-jnqg.onrender.com/api/items");
 
         if (allItemsResponse.ok) {
           const allItems = await allItemsResponse.json();
@@ -114,7 +114,7 @@ export default function ItemDetails() {
           <div className="image-section">
             {item.photo ? (
               <img
-                src={`http://localhost:5000${item.photo}`}
+                src={`https://campus-lost-found-jnqg.onrender.com${item.photo}`}
                 alt={item.itemName}
                 onError={(e) => {
                   console.error("Image failed to load:", item.photo);
@@ -253,7 +253,7 @@ export default function ItemDetails() {
                   <div className="similar-image">
                     {similar.photo ? (
                       <img
-                        src={`http://localhost:5000${similar.photo}`}
+                       src={`https://campus-lost-found-jnqg.onrender.com${similar.photo}`}
                         alt={similar.itemName}
                         onError={(e) => {
                           e.target.style.display = "none";
