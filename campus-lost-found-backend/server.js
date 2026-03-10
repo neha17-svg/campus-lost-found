@@ -33,13 +33,36 @@ app.use((req, res, next) => {
 // ============================================================================
 // MONGODB CONNECTION
 // ============================================================================
+const PORT = process.env.PORT || 5000;
 
-const MONGO_URL = process.env.MONGO_URL || "mongodb+srv://campususer:HtyWCMUbRJq0MSwV@cluster0.plgvadm.mongodb.net/lostfound";
+const MONGO_URL = process.env.MONGO_URL;
 
-mongoose
-  .connect(MONGO_URL)
-  .then(() => console.log("✅ MongoDB connected"))
-  .catch((err) => console.error("❌ MongoDB connection error:", err.message));
+mongoose.set("bufferCommands", false);
+
+async function connectDB() {
+  try {
+    await mongoose.connect(MONGO_URL, {
+      serverSelectionTimeoutMS: 30000,
+    });
+    console.log("✅ MongoDB connected");
+  } catch (err) {
+    console.error("❌ MongoDB connection error:", err.message);
+    process.exit(1);
+  }
+}
+let server;
+
+function startServer() {
+  server = app.listen(PORT, () => {
+    console.log(`🚀 SERVER RUNNING ON PORT ${PORT}`);
+  });
+}
+
+connectDB().then(() => {
+  startServer();
+});
+
+
 
 // ============================================================================
 // ITEM MODEL - DEFINED INLINE
@@ -403,61 +426,30 @@ app.use((err, req, res, next) => {
 // START SERVER
 // ============================================================================
 
-const PORT = process.env.PORT || 5000;
 
-const server = app.listen(PORT, () => {
-  console.log(`
-╔════════════════════════════════════════════════════════╗
-║                                                        ║
-║          🚀 SERVER RUNNING ON PORT ${PORT}              ║
-║                                                        ║
-║          📡 http://localhost:${PORT}                    ║
-║                                                        ║
-║          ✅ ALL ROUTES WORKING:                         ║
-║                                                        ║
-║          📋 ITEMS:                                      ║
-║             POST   /api/items                          ║
-║             GET    /api/items                          ║
-║             GET    /api/items/:id                      ║
-║             DELETE /api/items/:id                      ║
-║             PATCH  /api/items/:id/status               ║
-║                                                        ║
-║          📊 STATS:                                      ║
-║             GET    /api/stats                          ║
-║                                                        ║
-║          🎯 MATCHING:                                   ║
-║             POST   /api/matches/verify                 ║
-║                                                        ║
-║          👤 ADMIN:                                      ║
-║             POST   /api/admin/login                    ║
-║                                                        ║
-╚════════════════════════════════════════════════════════╝
 
-✅ MongoDB connected
-✅ All routes registered
-✅ Ready to accept requests
 
-Test: curl http://localhost:5000/api/stats
-
-`);
-});
 
 // Graceful shutdown
 process.on("SIGTERM", async () => {
-  console.log("SIGTERM signal received: closing HTTP server");
+  console.log("SIGTERM signal received");
 
-  server.close(async () => {
-    console.log("HTTP server closed");
+  if (server) {
+    server.close(async () => {
+      console.log("HTTP server closed");
 
-    try {
-      await mongoose.connection.close();
-      console.log("MongoDB connection closed");
-    } catch (err) {
-      console.error("Error closing MongoDB:", err);
-    }
+      try {
+        await mongoose.connection.close();
+        console.log("MongoDB connection closed");
+      } catch (err) {
+        console.error("Error closing MongoDB:", err);
+      }
 
+      process.exit(0);
+    });
+  } else {
     process.exit(0);
-  });
+  }
 });
 
 module.exports = app;
