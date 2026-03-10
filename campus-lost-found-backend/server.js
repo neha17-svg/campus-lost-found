@@ -34,7 +34,7 @@ app.use((req, res, next) => {
 // MONGODB CONNECTION
 // ============================================================================
 
-const MONGO_URL = "mongodb+srv://campususer:HtyWCMUbRJq0MSwV@cluster0.plgvadm.mongodb.net/lostfound";
+const MONGO_URL = process.env.MONGO_URL || "mongodb+srv://campususer:HtyWCMUbRJq0MSwV@cluster0.plgvadm.mongodb.net/lostfound";
 
 mongoose
   .connect(MONGO_URL)
