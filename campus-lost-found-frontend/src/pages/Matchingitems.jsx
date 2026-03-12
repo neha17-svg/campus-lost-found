@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./MatchingItems.css";
+import "./Matchingitems.css";
 
 export default function MatchingItems() {
   const [matches, setMatches] = useState([]);

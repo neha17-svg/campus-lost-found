@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "./ItemDetails.css";
+import "./itemdetails.css";
 
 export default function ItemDetails() {
   const { id } = useParams();

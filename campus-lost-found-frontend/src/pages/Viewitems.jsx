@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import "./ViewItems.css";
+import "./Viewitems.css";
 
 export default function ViewItems() {
   const [items, setItems] = useState([]);
