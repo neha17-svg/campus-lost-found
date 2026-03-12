@@ -5,6 +5,14 @@ const mongoose = require("mongoose");
 const path = require("path");
 
 const app = express();
+const fs = require("fs");
+
+// Create uploads folder if it doesn't exist
+const uploadsDir = path.join(__dirname, "uploads");
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+  console.log("✅ uploads/ directory created");
+}
 
 // ============================================================================
 // MIDDLEWARE - MUST BE BEFORE ROUTES
